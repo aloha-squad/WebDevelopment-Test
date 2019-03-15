@@ -9,8 +9,8 @@ class NavBar extends Component {
                     <button onClick={this.props.logout} className="button" >
                         Log out
                     </button>
-                    <form className="form-inline">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                    <form className="form-inline" onSubmit={this.props.searchHashtag}>
+                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" />
                         <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </nav>

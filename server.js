@@ -27,10 +27,13 @@ app.use(cors(corsOption));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const router = require('./api/twitter/routes/authentication-route');
-
+const authenticationRouter = require('./api/twitter/routes/authentication-route');
+const searchRoute = require('./api/twitter/routes/search-route');
 //Config Twitter authentication routes
-app.use('/api/v1', router);
+app.use('/api/v1/auth', authenticationRouter);
+
+//Config twitter seacrh for hashtags route
+app.use('/api/v1/search', searchRoute);
 
 //Server port
 const port = process.env.PORT || 5000;
