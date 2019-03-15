@@ -1,5 +1,8 @@
 'use strict';
 
+//Set enviroment
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -36,7 +39,7 @@ app.use('/api/v1/auth', authenticationRouter);
 app.use('/api/v1/search', searchRoute);
 
 //Server port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 //Listening
 app.listen(port, () => console.log(`Server is up and runing on port ${port}`));

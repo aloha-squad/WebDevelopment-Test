@@ -1,18 +1,37 @@
 const Twitter = require('twitter');
 
-const twitter_api_key = require('../config/twitter-api-keys');
-
 const client = new Twitter({
-  consumer_key: twitter_api_key.TWITTER_CONSUMER_KEY,
-  consumer_secret: twitter_api_key.TWITTER_CONSUMER_SECRET,
-  access_token_key: twitter_api_key.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: twitter_api_key.TWITTER_ACCESS_TOKEN_SECRET
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
+
+//Returns only tweets that contains coordinates attribute
+getTweetCoords = (tweets) => {
+  const tweetsCoord = [];
+  tweets.map((tweet) => {
+    if (tweet.coordinates !== null) {
+      tweetsCoord.push(
+        {
+          id: tweet.id,
+          coordinates: {
+            lat: tweet.coordinates.coordinates[1],
+            lng: tweet.coordinates.coordinates[0]
+          }
+        }
+      );
+    }
+  });
+
+  return tweetsCoord;
+}
 
 exports.searchForHashtag = function (req, res, next) {
   client.get('search/tweets', req.body, function (error, tweet, response) {
     if (error) throw (error);
 
-    res.send(tweet);
+    const tweetsCoord = getTweetCoords(tweet.statuses);
+    res.send(tweetsCoord);
   });
 }

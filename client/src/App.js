@@ -6,12 +6,11 @@ import Map from './components/map';
 import SearchService from './services/searchService';
 
 class App extends Component {
-
   state = {
     isAuthenticated: false,
     user: null,
     token: '',
-    tweets: undefined
+    tweets: []
   };
 
   //Authentication successfull
@@ -38,7 +37,7 @@ class App extends Component {
     if (e !== undefined)
       e.preventDefault();
 
-    const query = e.currentTarget.elements.search.value;
+    const query = e.currentTarget.elements.query.value;
 
 
     const response = await SearchService.post('/hashtag', {
@@ -47,22 +46,21 @@ class App extends Component {
     });
 
     let tweets = await response.data;
-    //console.log(JSON.stringify(tweets.statuses));
-    this.setState({ tweets: tweets.statuses });
 
+    this.setState({ tweets: tweets });
   };
 
   render() {
     return (
       <div className="App">
         <NavBar
-          state={this.state}
+          isAuthenticated={this.state.isAuthenticated}
           searchHashtag={this.searchHashtag}
           onSuccess={this.onSuccess}
           onFailed={this.onFailed}
           logout={this.logout}
         />
-        <Map />
+        <Map tweets={this.state.tweets} />
       </div>
     );
   }
