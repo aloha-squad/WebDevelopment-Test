@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twitter#Finder</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo">Twitter#Finder</a>
+		</div>
+    </nav>
+    <% if (!user) {%>
+        <div class="row">
+            <div class="row">
+                <a href="/twitter/login"><img id="twitter" src="/auth_twitter_button.png" alt="twitterlogin" /></a>
+                </div>
+            </div>
+    <%} else {%>
+        <header>
+                <h4>Welcome to your profile, <%= user.displayName %></h4>
+            </header>
+            <main>
+                <img src="<%= user._json.profile_image_url_https %>" />This is your profile thumbnail
+            </main>
+            <p>
+                Press Find to search for the hashtag then press Load to show them.
+                <% if(dataFromUser) { %>
+                <div class="input-field col s6">
+                        <div id="mapid" style=" width: 600px; height: 180px;"></div>
+                </div>
+                <%}%>
+            </p>
+            <div class="row">
+                <form name="form1" method="POST" action="/post">
+                    <div class="input-field col s3">
+                        <label class="active" for="output">#Finder:</label>
+                        <input name="finder" type="text" />
+                    </div>
+                    <div class="input-field col s12">
+                        <input class="btn waves-effect waves-light" type="submit" value="Find">
+                    </div>
+                </form>
+                <form name="form2" method="GET" action="/load">
+                    <div class="input-field col s12">
+                        <input class="btn waves-effect waves-light" type="submit" value="Load">
+                    </div>
+                </form>
+
+            </div>
+            <% if(statuses) { %>
+                <p><%= statuses.length%> tweets found for <%= statuses[0].finder%></p>
+            <% for (var i = 0; i<statuses.length;i++){%>
+                <%-statuses[i].embedhtml-%>
+            <% }}%>
+<% } %>
+
+<% if(dataFromUser) { %>
+    <script>
+    
+        var mymap = L.map('mapid').setView([0,0], 0);
+    
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            maxZoom: 13,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: 'mapbox.streets'
+        }).addTo(mymap);
+        <% for (var i = 0; i<dataFromUser.length;i++){%>
+            L.marker([<%-dataFromUser[i].coordinates[0]-%>,<%-dataFromUser[i].coordinates[1]-%>]).addTo(mymap)
+            .bindPopup('<b><%-dataFromUser[i].user_screen_name-%></b>').openPopup();
+    
+             var popup = L.popup();
+        <%}%>
+
+    </script> 
+<%}%> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "twitter_spa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha ./test/test-app.js --timeout 15000",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "depd": "^2.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.4.19",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
+    "twit": "^2.2.11"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "nodemon": "^1.18.10",
+    "supertest": "*"
+  }
+}
