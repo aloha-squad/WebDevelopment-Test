@@ -39,6 +39,23 @@ app.use('/api/v1/auth', authenticationRoute);
 //Config twitter seacrh for hashtags route
 app.use('/api/v1/search', searchRoute);
 
+//Handling errors
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+});
+
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({
+        error: {
+            status: err.status,
+            message: err.message
+        }
+    });
+});
+
 //Server port
 const port = process.env.PORT;
 

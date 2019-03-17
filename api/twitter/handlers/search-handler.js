@@ -30,7 +30,7 @@ getTweetCoordsAndTone = async (tweets) => {
 }
 
 //send a request to twitter api to get the tweets that contains the query in req.body
-search = (req) => {
+search = (req, next) => {
   return new Promise((resolve, reject) => {
     twitterClient.get('search/tweets', req.body, (error, data, response) => {
       if (error) reject(error);
@@ -42,11 +42,24 @@ search = (req) => {
 
 //Search for the hashtag bundle
 exports.searchForHashtag = async (req, res, next) => {
+  let tweets;
+
   //Do the searh on twitter api
-  let tweets = await search(req);
-
-  //Get tone and coords of the tweets that coords !== null
-  tweets = await getTweetCoordsAndTone(tweets);
-
-  res.send(tweets);
+  await search(req).then((response) => {
+    //Search well succedded
+    return response;
+  }, (err) => {
+    //Twitter search error
+    console.error('Twitter seach error: ' + err);
+    next(err);
+  }).then(async (response) => {
+    //Get tone and coords of the tweets that coords !== null
+    tweets = await getTweetCoordsAndTone(response);
+    //Send the result
+    res.send(tweets);
+  }, (err) => {
+    //Tone analyzer error
+    console.error('Tone Analyzer error: ' + err);
+    next(err);
+  }).catch(e => console.log('Exception: ' + e));;
 }
