@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import NavBar from './components/navbar';
 import Map from './components/map';
+import BottomBar from './components/bottombar';
 
 import SearchService from './services/searchService';
 
@@ -30,21 +31,31 @@ class App extends Component {
 
   //Logout cleans user authenticated data from state
   logout = () => {
-    this.setState({ isAuthenticated: false, token: '', user: null })
+    this.setState({ isAuthenticated: false, token: '', user: null, tweets: [] })
   };
 
   searchHashtag = async (e) => {
     if (e !== undefined)
       e.preventDefault();
 
+    //Search query
     const query = e.currentTarget.elements.query.value;
 
-
-    const response = await SearchService.post('/hashtag', {
+    //response contains the 100 tweets that contains the query containt
+    const response = await SearchService.post('/search/hashtag', {
       q: query,
       count: 100
     });
 
+    /* tweets struture 
+      [{ id: '',
+         tone: '', 
+        coordinates: { 
+          lat: '', 
+          lng: ''
+        } 
+      }]  
+    */
     let tweets = await response.data;
 
     this.setState({ tweets: tweets });
@@ -61,6 +72,7 @@ class App extends Component {
           logout={this.logout}
         />
         <Map tweets={this.state.tweets} />
+        <BottomBar />
       </div>
     );
   }

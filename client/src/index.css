@@ -22,6 +22,11 @@ button {
   border-width: 1px;
   border-style: none;
   border-color: #f8f9fa;
+  margin-left: 0;
+}
+
+form {
+  margin-right: 0;  
 }
 
 button:hover {

@@ -1,6 +1,8 @@
 const Twitter = require('twitter');
 
-const client = new Twitter({
+const toneAnalyzer = require('../../toneanalyzer/tone-analyzer');
+
+const twitterClient = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
@@ -8,30 +10,43 @@ const client = new Twitter({
 });
 
 //Returns only tweets that contains coordinates attribute
-getTweetCoords = (tweets) => {
-  const tweetsCoord = [];
+getTweetCoordsAndTone = async (tweets) => {
+  const tweetWithCoords = [];
+
+  //Only tweets that have coordinates will be add to the array
   tweets.map((tweet) => {
     if (tweet.coordinates !== null) {
-      tweetsCoord.push(
-        {
-          id: tweet.id,
-          coordinates: {
-            lat: tweet.coordinates.coordinates[1],
-            lng: tweet.coordinates.coordinates[0]
-          }
-        }
-      );
+      tweetWithCoords.push(tweet);
     }
   });
 
-  return tweetsCoord;
+  //Generating promises of the tweets
+  const promises = tweetWithCoords.map(async (tweet) => {
+    let data = await toneAnalyzer.getTone(tweet);
+    return data;
+  });
+
+  return await Promise.all(promises);
 }
 
-exports.searchForHashtag = function (req, res, next) {
-  client.get('search/tweets', req.body, function (error, tweet, response) {
-    if (error) throw (error);
+//send a request to twitter api to get the tweets that contains the query in req.body
+search = (req) => {
+  return new Promise((resolve, reject) => {
+    twitterClient.get('search/tweets', req.body, (error, data, response) => {
+      if (error) reject(error);
 
-    const tweetsCoord = getTweetCoords(tweet.statuses);
-    res.send(tweetsCoord);
+      resolve(data.statuses);
+    });
   });
+};
+
+//Search for the hashtag bundle
+exports.searchForHashtag = async (req, res, next) => {
+  //Do the searh on twitter api
+  let tweets = await search(req);
+
+  //Get tone and coords of the tweets that coords !== null
+  tweets = await getTweetCoordsAndTone(tweets);
+
+  res.send(tweets);
 }
