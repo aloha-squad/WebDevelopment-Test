@@ -29,6 +29,7 @@
             </main>
             <p>
                 Press Find to search for the hashtag then press Load to show them.
+                **MUST BE IN ENGLISH OTHERWISE NO TWEETS FOR YOU**
                 <% if(dataFromUser) { %>
                 <div class="input-field col s6">
                         <div id="mapid" style=" width: 600px; height: 180px;"></div>
@@ -53,7 +54,21 @@
 
             </div>
             <% if(statuses) { %>
-                <p><%= statuses.length%> tweets found for <%= statuses[0].finder%></p>
+                <p>
+                    <%= statuses.length%> tweets found for <%= statuses[0].finder%> - BLOB FEELINGS REGARDING THEM - 
+                    <% if((sentimentScore/statuses.length) > 0.5) { %>
+                        <img id="loveblob" src="/loveblob.png" alt="loveblob" > sentimentScore[<%=sentimentScore%>]
+                    <% } %>
+                    <% if((sentimentScore/statuses.length) < -0.5) { %>
+                        <img id="angryblob" src="/angryblob.png" alt="angryblob" > sentimentScore[<%=sentimentScore%>]
+                    <% } %>
+                    <% if((sentimentScore/statuses.length) > -0.5 && (sentimentScore/statuses.length) < 0.5 ) { %>
+                        <img id="neutralblob" src="/neutralblob.png" alt="neutralblob"> sentimentScore[<%=sentimentScore%>]
+                    <% } %>
+
+
+                </p>
+
             <% for (var i = 0; i<statuses.length;i++){%>
                 <%-statuses[i].embedhtml-%>
             <% }}%>
