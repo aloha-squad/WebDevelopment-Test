@@ -47,15 +47,6 @@ class App extends Component {
       count: 100
     });
 
-    /* tweets struture 
-      [{ id: '',
-         tone: '', 
-        coordinates: { 
-          lat: '', 
-          lng: ''
-        } 
-      }]  
-    */
     let tweets = await response.data;
 
     this.setState({ tweets: tweets });

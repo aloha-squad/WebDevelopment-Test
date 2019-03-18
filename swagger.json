@@ -1,0 +1,104 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Web Development Test API",
+        "description": "API to get tweets emotions and coords, more info about twitter authentication in: https://github.com/drudge/passport-twitter-token",
+        "license": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+    },
+    "host": "127.0.0.1:5000",
+    "basePath": "/api/v1",
+    "tags": [
+        {
+            "name": "Hashtag Search",
+            "description": "API to search for hashtags and return their coords and tone"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/search/hashtag": {
+            "post": {
+                "tags": [
+                    "Hashtag Search"
+                ],
+                "description": "Redirects to Twitter login page",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "body",
+                        "required": true,
+                        "type": "string",
+                        "example": {
+                            "q": "#love"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of tweets that contains the hashtag",
+                        "schema": {
+                            "$ref": "#/definitions/tweets"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "tweet": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "tone": {
+                    "type": "array",
+                    "$ref": "#/definitions/tone"
+                },
+                "coordinates": {
+                    "properties": {
+                        "lat": {
+                            "type": "number"
+                        },
+                        "lng": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        },
+        "tweets": {
+            "type": "array",
+            "$ref": "#/definitions/tweet"
+        },
+        "tone": {
+            "properties": {
+                "score": {
+                    "type": "number"
+                },
+                "tone_id": {
+                    "type": "string"
+                },
+                "tone_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "tones": {
+            "type": "array",
+            "$ref": "#/definitions/tone"
+        }
+    }
+}

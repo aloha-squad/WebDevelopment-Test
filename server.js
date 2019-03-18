@@ -7,6 +7,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+//Documentation dependencies
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+
 const database = require('./persistence/database/database-connection');
 
 //Runs database conection
@@ -38,6 +43,9 @@ app.use('/api/v1/auth', authenticationRoute);
 
 //Config twitter seacrh for hashtags route
 app.use('/api/v1/search', searchRoute);
+
+//Documentation route
+app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //Handling errors
 app.use((req, res, next) => {
