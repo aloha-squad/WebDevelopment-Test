@@ -17,27 +17,27 @@ export class MapContainer extends Component {
   * undefined (gray) BBBBBB
   */
   getMarkerToned(tones) {
-    let url = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2%7C";
+    //let url = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2%7C";
 
     let tone = this.getMajorTone(tones);
 
     switch (tone.tone_id) {
       case 'anger':
-        return url + "FF0000";
+        return require('../assets/red_marker.png');
       case 'fear':
-        return url + "00FF00";
+        return require('../assets/green_marker.png');
       case 'joy':
-        return url + "FFFF00";
+        return require('../assets/yellow_marker.png');
       case 'sadness':
-        return url + "0000FF";
+        return require('../assets/blue_marker.png');
       case 'analytical':
-        return url + "FFFFFF";
+        return require('../assets/white_marker.png');
       case 'confident':
-        return url + "FF00FF";
+        return require('../assets/purple_marker.png');
       case 'tentative':
-        return url + "00FFFF";
+        return require('../assets/marine_marker.png');
       default:
-        return url + "BBBBBB";
+        return require('../assets/gray_marker.png');
     }
   }
 
