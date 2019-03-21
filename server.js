@@ -34,6 +34,7 @@ app.use(bodyParser.json());
 
 const authenticationRoute = require('./api/twitter/routes/authentication-route');
 const searchRoute = require('./api/twitter/routes/search-route');
+
 //Static file declaration
 app.use(express.static(path.join(__dirname, 'client/build')));
 
