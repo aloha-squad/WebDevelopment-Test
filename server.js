@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 
 //Documentation dependencies
@@ -31,14 +32,26 @@ app.use(cors(corsOption));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//In production
-if (process.env.NODE_ENV === "production") {
-  //Security settings
-  require('./server/config/security')(app);
-};
-
 const authenticationRoute = require('./api/twitter/routes/authentication-route');
 const searchRoute = require('./api/twitter/routes/search-route');
+//Static file declaration
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+//In production
+if (process.env.NODE_ENV === "production") {
+    //Security settings
+    require('./server/config/security')(app);
+
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('*', (req, res) => {
+        res.sendfile(path.join(__dirname = 'client/build/index.html'));
+    });
+};
+
+//build mode
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/public/index.html'));
+});
 
 //Config Twitter authentication routes
 app.use('/api/v1/auth', authenticationRoute);
