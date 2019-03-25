@@ -1,19 +1,19 @@
 const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
 const secure = require('express-secure-only');
+const helmet = require('helmet');
 
 module.exports = (app) => {
     app.enable('trust proxy');
 
+    //Forces app to run on https
     app.use(secure());
 
-    app.use(helmet({
-        cacheControl: false,
-        frameguard: false
-    }));
+    //Set http headers security, using helmet default settings
+    app.use(helmet());
 
-    app.use('/api/', rateLimit({
-        windowMs: 30 * 1000, // seconds
+    //Sets request rate limit
+    app.use('/api/v1', rateLimit({
+        windowMs: 30 * 1000,
         delayMs: 0,
         max: 6,
         message: JSON.stringify({
