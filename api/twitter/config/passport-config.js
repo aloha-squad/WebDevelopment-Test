@@ -14,6 +14,5 @@ module.exports = () => {
         User.upsertTwitterUser(token, tokenSecret, profile, function (err, user) {
             return done(err, user);
         });
-    }
-    ));
+    }));
 }

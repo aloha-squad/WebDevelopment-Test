@@ -5,24 +5,25 @@ const mongoose = require('mongoose');
 const UserSchema = mongoose.Schema({
   twitterProvider: {
     type: {
-      id: String, 
+      id: String,
       token: String
     },
-    required:true,
+    required: true,
     select: false
   }
 });
 
-UserSchema.set('toJSON', { getters: true, virtuals: true });
+UserSchema.set('toJSON', {
+  getters: true,
+  virtuals: true
+});
 
-//If the user does not exists on database
-UserSchema.statics.upsertTwitterUser = function (token, tokenSecret, profile, cb) {
+UserSchema.statics.upsertTwitterUser = function (token, tokenSecret, profile, callback) {
   let that = this;
   return this.findOne({
     'twitterProvider.id': profile.id
   }, function (err, user) {
-    // no user was found, create a new one
-    if (!user) {
+    if (!user) { //No user was found, create a new one
       let newUser = new that({
         twitterProvider: {
           id: profile.id,
@@ -33,12 +34,12 @@ UserSchema.statics.upsertTwitterUser = function (token, tokenSecret, profile, cb
 
       newUser.save(function (error, savedUser) {
         if (error) {
-          console.log(error);
+          console.error(error);
         }
-        return cb(error, savedUser);
+        return callback(error, savedUser);
       });
     } else {
-      return cb(err, user);
+      return callback(err, user);
     }
   });
 };

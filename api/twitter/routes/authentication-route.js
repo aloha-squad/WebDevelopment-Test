@@ -18,7 +18,9 @@ router.route('/twitter/reverse')
       }
     }, (err, r, body) => {
       if (err) {
-        res.send(500, { message: err.message });
+        res.send(500, {
+          message: err.message
+        });
       }
       let jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
       res.send(JSON.parse(jsonStr));
@@ -34,10 +36,14 @@ router.route('/twitter')
         consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
         token: req.query.oauth_token
       },
-      form: { oauth_verifier: req.query.oauth_verifier }
+      form: {
+        oauth_verifier: req.query.oauth_verifier
+      }
     }, (err, r, body) => {
       if (err) {
-        return res.send(500, { message: err.message });
+        return res.send(500, {
+          message: err.message
+        });
       }
       const bodyString = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
       const parsedBody = JSON.parse(bodyString);
@@ -48,7 +54,9 @@ router.route('/twitter')
 
       next();
     });
-  }, passport.authenticate('twitter-token', { session: false }), (req, res, next) => {
+  }, passport.authenticate('twitter-token', {
+    session: false
+  }), (req, res, next) => {
     if (!req.user) {
       return res.send(401, 'User Not Authenticated');
     }
