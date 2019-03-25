@@ -10,7 +10,7 @@ const twitterClient = new Twitter({
 });
 
 //Returns only tweets that contains coordinates attribute
-getTweetCoordsAndTone = async (tweets) => {
+getTweetCoordsAndTone = (tweets) => {
   const tweetWithCoords = [];
 
   //Only tweets that have coordinates will be add to the array
@@ -21,15 +21,14 @@ getTweetCoordsAndTone = async (tweets) => {
   });
 
   //Generating promises of the tweets
-  const promises = tweetWithCoords.map(async (tweet) => {
-    let data = await toneAnalyzer.getTone(tweet);
-    return data;
+  const promises = tweetWithCoords.map((tweet) => {
+    return toneAnalyzer.getTone(tweet);
   });
 
-  return await Promise.all(promises);
-}
+  return Promise.all(promises);
+};
 
-//send a request to twitter api to get the tweets that contains the query in req.body
+//Sends a request to twitter api to get the tweets that contains the query parameter
 search = (query) => {
   return new Promise((resolve, reject) => {
     twitterClient.get('search/tweets', query, (error, data, response) => {
@@ -40,26 +39,17 @@ search = (query) => {
   });
 };
 
-//Search for the hashtag bundle
 exports.searchForHashtag = async (req, res, next) => {
-  let tweets;
-
-  //Do the searh on twitter api
-  await search(req.body).then((response) => {
-    //Search well succedded
-    return response;
-  }, (err) => {
-    //Twitter search error
-    console.error('Twitter seach error: ' + err);
-    return next(err);
-  }).then(async (response) => {
-    //Get tone and coords of the tweets that coords !== null
-    tweets = await getTweetCoordsAndTone(response);
-    //Send the result
-    res.send(tweets);
-  }, (err) => {
-    //Tone analyzer error
-    console.error('Tone Analyzer error: ' + err);
-    return next(err);
-  }).catch(e => console.log('Exception: ' + e));;
-}
+  try {
+    //Search for tweets that contains the hashtag
+    let tweets = await search(req.body);
+    //Get coordinates and tone from the tweets
+    let response = await getTweetCoordsAndTone(tweets);
+    //Sends back the result
+    res.send(response);
+  } catch (e) {
+    console.warn('Exception in searchForHashtag method: ' + e);
+    //Returns a empty array in case of exceptions
+    res.send([]);
+  }
+};

@@ -9,26 +9,24 @@ const toneAnalyzer = new ToneAnalyzerV3({
     url: process.env.IAM_URL
 });
 
-//Get the text from request, sends to tone analyzer api and returns the result on data
+//Get the text from the request, sends to tone analyzer api and get the result on data
 exports.getTone = (req) => {
-    return new Promise(
-        (resolve, reject) => {
-            toneAnalyzer.tone({
-                tone_input: req.text,
-                content_type: 'text/plain'
-            }, (err, data) => {
-                if (err) {
-                    reject(err);
+    return new Promise((resolve, reject) => {
+        toneAnalyzer.tone({
+            tone_input: req.text,
+            content_type: 'text/plain'
+        }, (err, data) => {
+            if (err) reject(err);
+
+            resolve({
+                id: req.id,
+                tone: data.document_tone.tones,
+                coordinates: {
+                    lat: req.coordinates.coordinates[1],
+                    lng: req.coordinates.coordinates[0]
                 }
-                resolve({
-                    id: req.id,
-                    tone: data.document_tone.tones,
-                    coordinates: {
-                        lat: req.coordinates.coordinates[1],
-                        lng: req.coordinates.coordinates[0]
-                    }
-                });
             });
-        }
+        });
+    }
     );
 };

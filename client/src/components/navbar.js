@@ -17,9 +17,9 @@ class NavBar extends Component {
             ) :
             (
                 <Navbar bg="dark" variant="dark">
-                    <TwitterLogin loginUrl="https://webdevelopment.mybluemix.net/api/v1/auth/twitter"
+                    <TwitterLogin loginUrl="http://127.0.0.1:5000/api/v1/auth/twitter"
                         onFailure={this.props.onFailed} onSuccess={this.props.onSuccess}
-                        requestTokenUrl="https://webdevelopment.mybluemix.net/api/v1/auth/twitter/reverse"
+                        requestTokenUrl="http://127.0.0.1:5000/api/v1/auth/twitter/reverse"
                     />
                 </Navbar>
             );
