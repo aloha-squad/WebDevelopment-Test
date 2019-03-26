@@ -6,7 +6,7 @@ class NavBar extends Component {
     render() {
         let content = !!this.props.isAuthenticated ?
             (
-                <Navbar className="justify-content-between" bg="dark" variant="dark">
+                <Navbar className="justify-content-between" bg="dark" variant="dark" fixed="top">
                     <button onClick={this.props.logout} className="button" >Log out</button>
                     <Form inline onSubmit={this.props.searchHashtag}>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" name="query" />
@@ -16,10 +16,10 @@ class NavBar extends Component {
 
             ) :
             (
-                <Navbar bg="dark" variant="dark">
-                    <TwitterLogin loginUrl="http://127.0.0.1:5000/api/v1/auth/twitter"
+                <Navbar bg="dark" variant="dark" fixed="top">
+                    <TwitterLogin loginUrl="/api/v1/auth/twitter"
                         onFailure={this.props.onFailed} onSuccess={this.props.onSuccess}
-                        requestTokenUrl="http://127.0.0.1:5000/api/v1/auth/twitter/reverse"
+                        requestTokenUrl="/api/v1/auth/twitter/reverse"
                     />
                 </Navbar>
             );

@@ -31,7 +31,7 @@ class App extends Component {
 
   //Logout cleans user authenticated data from state
   logout = () => {
-    this.setState({ isAuthenticated: false, token: '', user: null, tweets: [] })
+    this.setState({ isAuthenticated: false, token: '', user: null, tweets: [] });
   };
 
   searchHashtag = async (e) => {
@@ -62,7 +62,7 @@ class App extends Component {
           onSuccess={this.onSuccess}
           onFailed={this.onFailed}
           logout={this.logout}
-        />
+        />      
         <Map tweets={this.state.tweets} />
         <BottomBar />
       </div>

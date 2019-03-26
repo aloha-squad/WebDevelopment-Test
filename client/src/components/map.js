@@ -2,58 +2,34 @@ import React, { Component } from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 export class MapContainer extends Component {
-
-  /*
-  * icons url: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2%7CFFFF42"
-  *
-  * tone => color
-  * anger (red) FF0000
-  * fear (green) 00FF00
-  * joy (yellow) FFFF00
-  * sadness (blue) 0000FF
-  * analytical (white) FFFFFF
-  * confident (purple) FF00FF
-  * tentative (marine) 00FFFF
-  * undefined (gray) BBBBBB
-  */
-  getMarkerToned(tones) {
-    //let url = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2%7C";
-
-    let tone = this.getMajorTone(tones);
-
-    switch (tone.tone_id) {
-      case 'anger':
-        return require('../assets/red_marker.png');
-      case 'fear':
-        return require('../assets/green_marker.png');
-      case 'joy':
-        return require('../assets/yellow_marker.png');
-      case 'sadness':
-        return require('../assets/blue_marker.png');
-      case 'analytical':
-        return require('../assets/white_marker.png');
-      case 'confident':
-        return require('../assets/purple_marker.png');
-      case 'tentative':
-        return require('../assets/marine_marker.png');
-      default:
-        return require('../assets/gray_marker.png');
-    }
-  }
-
-  //Return the tone with highest score or empty otherwise
+  //Return the tone with highest score
   getMajorTone(tones) {
-    let tone = {};
+    //When the list tones is empty, the tone analyzer was not capable of identifying the tone,
+    //so we set tone_id as undefined
+    let tone = {
+      tone_id: 'undefined'
+    };
 
     if (tones.length > 0) {
       tone = tones.reduce((a, b) => tones[a] > tones[b] ? a : b);
     }
-
-    return tone;
+    //Returns the id of the major tone
+    return tone.tone_id;
   }
 
   render() {
     const tweets = this.props.tweets;
+    //Enums the marker icon that represents a tone
+    const TONE_ICON = {
+      'anger': require('../assets/red_marker.png'),
+      'fear': require('../assets/green_marker.png'),
+      'joy': require('../assets/yellow_marker.png'),
+      'sadness': require('../assets/blue_marker.png'),
+      'analytical': require('../assets/white_marker.png'),
+      'confident': require('../assets/purple_marker.png'),
+      'tentative': require('../assets/marine_marker.png'),
+      'undefined': require('../assets/gray_marker.png')    
+    };
 
     return (
       <Map google={this.props.google}
@@ -66,7 +42,7 @@ export class MapContainer extends Component {
         {tweets.map((tweet) =>
           <Marker key={tweet.id} position={tweet.coordinates}
             icon={{
-              url: this.getMarkerToned(tweet.tone)
+              url: TONE_ICON[this.getMajorTone(tweet.tone)]
             }}
           />
         )}
@@ -76,7 +52,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: ("AIzaSyC1Ptx1JeOiTABVVnuMX7cW7MAvK136tT4")
+  apiKey: (process.env.REACT_APP_GOOGLEMAPS_API_KEY)
 })(MapContainer)
-
-
