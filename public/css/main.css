@@ -1,0 +1,49 @@
+main {
+    display: block;
+    margin: auto;
+    float: left;
+    width: 100%;
+    background-color: #eff2f7;
+}
+
+section {
+    margin: .5rem auto 3rem;
+}
+
+.main-container {
+    display: block;
+    float: left;
+    padding: 1rem;
+    width: 100%;
+}
+
+ul {
+    display: block;
+    text-align: center;
+    list-style-type: none;
+    margin-block-start: 0px;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+}
+
+/* .card-header{
+    background-color: #794bc4;
+    border-color: #A784D6;
+    color: #fff;
+} */
+
+/* .content-left {
+    float: left;
+    width: 50%;
+    padding: .5rem;
+}
+
+.content-right {
+    float: right;
+    width: 50%;
+    padding: .5rem;
+} */
+
+#9266CC

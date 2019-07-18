@@ -17,12 +17,26 @@ var nodeTwitter = new Twit({
 
 exports.nodeTwitterApi = function (request, response) {
     var paramsSearch = {
-        q: request.body.searchTerm,
-        count: 2
+        q: '%23' + request.body.searchTerm,
+        lang: 'en',
+        count: 2,
+        tweet_mode: 'extended'
     };
 
     nodeTwitter.get('search/tweets', paramsSearch, function (err, data) {
-        console.log(data)
-        response.status(200).send({success : "Sucesso"});
+        for(var key in data.statuses){
+            if(data.statuses[key].retweeted_status) {data.statuses[key].full_text = data.statuses[key].retweeted_status.full_text;}
+            console.log(data.statuses[key])
+        }
+        
+        if(err) {
+            console.log(err)
+            response.status(400).send({
+				error: err
+			});
+        }
+        else{
+            response.status(200).send({success : data});
+        }  
     })
 }

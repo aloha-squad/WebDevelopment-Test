@@ -1,0 +1,37 @@
+.card-header{
+    background-color: #794bc4;
+    border-color: #A784D6;
+    color: #fff;
+}
+
+.tweet-content{
+    display: block;
+    margin-left: 58px;
+}
+
+#cardTweets li{
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #e6ecf0;
+    cursor: pointer;
+}
+
+#cardTweets li img{
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    float: left;
+    margin-left: -58px;
+}
+
+#cardTweets .screenName{
+    display: block;
+    float: left;
+}
+
+
+/** ------ MAPS --------**/
+#map{
+    height: 400px;
+    width: 100%;
+}

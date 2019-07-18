@@ -31,6 +31,7 @@ app.set('view engine', 'handlebars');
 //---
 
 const twitterApi = require('./routes/twitter');
+const watsonApi = require('./routes/watson');
 
 /** Pages Routes Website **/
 app.get('/home', function (request, response) {
@@ -45,8 +46,6 @@ app.get('/home', function (request, response) {
 });
 
 app.get('/app', function (request, response) {
-    console.log(request.cookies.user);
-    console.log(request.cookies.displayName);
     if (typeof request.cookies.user == 'undefined')
 		response.redirect('/home');
     else{
@@ -54,7 +53,7 @@ app.get('/app', function (request, response) {
             bodyId: "app",
             username: request.cookies.user,
             displayName: request.cookies.displayName,
-            style: ['/css/main.css'],
+            style: ['/css/main.css','/css/app.css'],
             javascript: ['/js/app.js']
         });
     }
@@ -113,6 +112,16 @@ app.get('/twitter/return', passport.authenticate('twitter',{
 // Search Term Post for tweets Api
 app.post('/searchTweets', function(request,response){
     twitterApi.nodeTwitterApi(request,response);
+})
+
+// Route to receive the text and send to watson api to analyze
+app.post('/watson/analyze', function(request,response){
+	watsonApi.nodeWatsonAnalyze(request,response).then(data => {
+		// console.log(data);
+		response.status(200).send({
+			success: data
+		});
+	})
 })
 
 //All Routes
