@@ -1,21 +1,28 @@
 const express = require('express');
 const app = express();
 const Twit = require('twit')
+const config = require('../config/config.json');
 
-const nodeTwitter = new Twit({
-    consumer_key: 'JEfRUKgIc6VjjYBD9c4zR8XBi',
-    consumer_secret: '2azN3MLX3uRKcH4vdP7uIomDK2g3Ph6GguYl7x1W2wJnbBacyY',
-    access_token: '1151608258811052033-wLXs4QgTpxMyCFo9aVuCWBCsrWxzJw',
-    access_token_secret: 'w7RgtAkrJrEJqZ6xf6xMlSOyKYSfuKQzmTrfRkGPJVdno'
+app.use(express.json()); // to support JSON-encoded bodies
+app.use(express.urlencoded({ // to support URL-encoded bodies
+	extended: true
+}));
+
+var nodeTwitter = new Twit({
+    consumer_key: config.Twitter.consumer_key,
+    consumer_secret: config.Twitter.consumer_secret,
+    access_token: config.Twitter.access_token,
+    access_token_secret: config.Twitter.access_token_secret
 })
 
-var paramsSearch = {
-    q: 'e3',
-    count: 2
-};
+exports.nodeTwitterApi = function (request, response) {
+    var paramsSearch = {
+        q: request.body.searchTerm,
+        count: 2
+    };
 
-exports.nodeTwitterApi = function () {
-    nodeTwitter.get('search/tweets', paramsSearch, function (err, data, response) {
+    nodeTwitter.get('search/tweets', paramsSearch, function (err, data) {
         console.log(data)
+        response.status(200).send({success : "Sucesso"});
     })
 }

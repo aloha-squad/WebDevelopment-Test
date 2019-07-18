@@ -34,15 +34,86 @@ const twitterApi = require('./routes/twitter');
 
 /** Pages Routes Website **/
 app.get('/home', function (request, response) {
-    twitterApi.nodeTwitterApi();
-
+    response.clearCookie('user');
+    response.clearCookie('displayName');
+    
 	response.render('home', {
-		bodyId: "home",
+        bodyId: "home",
 		style: ['/css/main.css'],
 		javascript: []
 	});
 });
+
+app.get('/app', function (request, response) {
+    console.log(request.cookies.user);
+    console.log(request.cookies.displayName);
+    if (typeof request.cookies.user == 'undefined')
+		response.redirect('/home');
+    else{
+        response.render('app', {
+            bodyId: "app",
+            username: request.cookies.user,
+            displayName: request.cookies.displayName,
+            style: ['/css/main.css'],
+            javascript: ['/js/app.js']
+        });
+    }
+});
 /** END Pages Routes **/
+
+/** Login Twitter **/
+const passport = require('passport')
+const TwitterStrategy = require('passport-twitter').Strategy;
+const session = require('express-session');
+
+app.use(session({
+    secret: 'secretSession',
+    resave: true,
+    saveUninitialized: true,
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+passport.use(
+	new TwitterStrategy({
+			consumerKey: 'JEfRUKgIc6VjjYBD9c4zR8XBi',
+			consumerSecret: '2azN3MLX3uRKcH4vdP7uIomDK2g3Ph6GguYl7x1W2wJnbBacyY',
+			callbackURL: 'http://localhost:3000/twitter/return'
+		},
+		function (token, tokenSecret, profile, done) {
+            return done(null,profile)
+		}
+	));
+
+passport.serializeUser(function (user, done) {
+	done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+
+app.get('/twitter/login', passport.authenticate('twitter'))
+
+app.get('/twitter/return', passport.authenticate('twitter',{
+    failureRedirect: '/home'
+}),function(request,response){
+    if (request.isAuthenticated(request,response)) {
+        // console.log(request.user)
+        response.cookie('user', request.user.username);
+        response.cookie('displayName', request.user.displayName);
+        
+		response.redirect('/app');
+	}
+})
+/** END Login Twitter **/
+
+// Search Term Post for tweets Api
+app.post('/searchTweets', function(request,response){
+    twitterApi.nodeTwitterApi(request,response);
+})
 
 //All Routes
 app.get('*', function (request, response) {

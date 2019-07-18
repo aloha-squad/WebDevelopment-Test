@@ -1,0 +1,10 @@
+{{username}}
+<br>
+{{displayName}}
+
+
+<form id="tweetsSearch" action="/searchTweets" method="post" class="form-horizontal">
+    <input type="hidden" id="username" name="username" value="{{username}}">
+    <input type="text" id="searchTerm" name="searchTerm" placeholder="Busque pela Hashtag" class="form-control" required>
+    <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+</form>
