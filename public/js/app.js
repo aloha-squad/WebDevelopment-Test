@@ -1,19 +1,4 @@
 (function () {
-    // Watson Test
-    $.ajax({
-        url: '/watson/analyze',
-        type: 'post',
-        data: {text: `Hi I'm Caio Americo and I like to draw a lot in my agenda.`},
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (data) {
-            console.warn(data.error);
-        }
-    })
-
-    
-
     $('#tweetsSearch').on('submit', function (event) {
         event.preventDefault();
         // let formData = $('#tweetsSearch').serializeArray();
@@ -85,5 +70,20 @@ function addMarkers(markerPosition, userName) {
 
     marker.addListener('click', function (e) {
         infoWindow.open(map, marker);
+    })
+}
+
+function watsonAnalyze(){
+    // Watson Test
+    $.ajax({
+        url: '/watson/analyze',
+        type: 'post',
+        data: {text: `Hi I'm Caio Americo and I like to draw a lot in my agenda.`},
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.warn(data.error);
+        }
     })
 }

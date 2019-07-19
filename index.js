@@ -39,8 +39,8 @@ app.get('/home', function (request, response) {
     response.clearCookie('displayName');
     
 	response.render('home', {
-        bodyId: "home",
-		style: ['/css/main.css'],
+        homepage: true,
+		style: ['/css/main.css','/css/home.css'],
 		javascript: []
 	});
 });
@@ -50,7 +50,7 @@ app.get('/app', function (request, response) {
 		response.redirect('/home');
     else{
         response.render('app', {
-            bodyId: "app",
+            pageId: "app",
             username: request.cookies.user,
             displayName: request.cookies.displayName,
             style: ['/css/main.css','/css/app.css'],
@@ -124,11 +124,14 @@ app.post('/watson/analyze', function(request,response){
 	})
 })
 
-//All Routes
+//All Routes and 404 page redirects to here
 app.get('*', function (request, response) {
+    response.clearCookie('user');
+    response.clearCookie('displayName');
+    
 	response.render('home', {
-		bodyId: "home",
-		style: ['/css/main.css'],
+        homepage: true,
+		style: ['/css/main.css','/css/home.css'],
 		javascript: []
 	});
 });

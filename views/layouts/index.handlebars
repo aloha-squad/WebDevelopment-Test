@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Web Development Test - Caio Americo</title>
 
@@ -7,37 +8,79 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Web Development Test">
-    {{!-- <link rel='shortcut icon' type='image/x-icon' href='/' /> --}}
+    <meta name="description" content="Web Development Test"> {{!--
+    <link rel='shortcut icon' type='image/x-icon' href='/' /> --}}
 
     <!-- Font -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
 
     <!-- FontAwesome CSS -->
-    {{!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    {{!--
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
         crossorigin="anonymous"> --}}
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-        crossorigin="anonymous">
-
-    {{# each style}}
-    <link rel="stylesheet" type="text/css" href="{{this}}" />
-    {{/each}}
+        crossorigin="anonymous"> {{# each style}}
+    <link rel="stylesheet" type="text/css" href="{{this}}" /> {{/each}}
 </head>
 
 <body>
     <main role="main">
-        <header></header>
+        <header id="computerHeader">
+            <div class="row topHead">
+                <div class="col-xl-1 col-sm-2 col-4 header-logo">
+                    IBM <strong>Test</strong>
+                </div>
+                {{#if homepage}}
+                <div class="col-xl-1 offset-xl-10 col-sm-2 offset-sm-8 col-4 offset-4 sign-in-header">
+                    <a href="/twitter/login"> Entrar </a>
+                </div>
+                {{else}}
+                <div class="col-lg-2 offset-lg-9 col-md-2 col-md-offset-7 col-sm-2 col-sm-offset-7 col-xs-3 col-xs-offset-4 btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Right-aligned menu
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </header>
+
+        <div class="headerInv" style="height: 59px;"> </div>
+
         <div class="main-container">
             {{{body}}}
         </div>
     </main>
 
+    <footer>
+        <div class="footerContainer">
+            <small>
+                Projeto desenvolvido por <strong>Caio Santos Americo</strong>
+            </small>
+        </div>
+    </footer>
+
     <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
 
     {{# each javascript}}
     <script src="{{this}}"></script>
     {{/each}}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-toggle").dropdown();
+        });
+    </script>
+
 </body>
