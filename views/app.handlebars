@@ -1,13 +1,12 @@
-{{username}}
-<br> {{displayName}}
+<section class="section-search">
+    <form id="tweetsSearch" action="/searchTweets" method="post" class="form-horizontal">
+        <input type="hidden" id="username" name="username" value="{{username}}">
+        <input type="text" id="searchTerm" name="searchTerm" placeholder="Busque pela Hashtag" class="form-control" required>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
+    </form>
+</section>
 
-<form id="tweetsSearch" action="/searchTweets" method="post" class="form-horizontal">
-    <input type="hidden" id="username" name="username" value="{{username}}">
-    <input type="text" id="searchTerm" name="searchTerm" placeholder="Busque pela Hashtag" class="form-control" required>
-    <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-</form>
-
-<section>
+<section class="section-tweets">
     <div class="row">
         <div class="col-lg-6">
             <div class="card">
@@ -15,8 +14,8 @@
                 <script>
                     var map;
                     var initPosition = {
-                        lat: -34.397,
-                        lng: 150.644
+                        lat: 25,
+                        lng: 0
                     }
 
                     function initMap() {
@@ -32,14 +31,50 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h2>Resultados da busca</h2>
+                   <h3 class="card-title"><i class="fab fa-twitter"></i> Tweets</h3> 
                 </div>
-                <div class="card-body">
+                <div class="card-body tweets-area">
+                    <div class="tweets-result"><small>Nenhuma busca foi realizada no momento</small></div>
+                    
                     <ul id="cardTweets"></ul>
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
+<section class="section-analyze">
+    <h2>Watson Analise</h2> 
+    <button type="button" class="btn btn-primary btn-sm" id="watsonAnalyzeBtn"><i class="fas fa-search"></i> Analisar </button>
+    <input type="hidden" id="watsonText" name="watsonText" value="" data-id="">
+    <p class="tweet-highlight" id="tweet-highlight">"Texto do usuário"</p>
+
+    <div class="mini-cards-area">
+        <div class="mini-card">
+            <i class="fas fa-search"></i>
+            <label>raiva</label>
+            <input id="card-angry" type="number" value="0.9"/>
+        </div>
+        <div class="mini-card">
+            <i class="fas fa-search"></i>
+            <label>indignação</label>
+            <input id="card-disgust" type="number" value="0.9"/>
+        </div>
+        <div class="mini-card">
+            <i class="fas fa-search"></i>
+            <label>medo</label>
+            <input id="card-fear" type="number" value="0.9"/>
+        </div>
+        <div class="mini-card">
+            <i class="fas fa-search"></i>
+            <label>felicidade</label>
+            <input id="card-joy" type="number" value="0.9"/>
+        </div>
+        <div class="mini-card">
+            <i class="fas fa-search"></i>
+            <label>tristeza</label>
+            <input id="card-sadness" type="number" value="0.9"/>
+        </div>
     </div>
 </section>
 

@@ -54,7 +54,7 @@ app.get('/app', function (request, response) {
             username: request.cookies.user,
             displayName: request.cookies.displayName,
             style: ['/css/main.css','/css/app.css'],
-            javascript: ['/js/app.js']
+            javascript: ['/js/app.js', '/js/watson-events.js']
         });
     }
 });
@@ -126,8 +126,8 @@ app.post('/watson/analyze', function(request,response){
 
 //All Routes and 404 page redirects to here
 app.get('*', function (request, response) {
-    response.clearCookie('user');
-    response.clearCookie('displayName');
+    // response.clearCookie('user');
+    // response.clearCookie('displayName');
     
 	response.render('home', {
         homepage: true,

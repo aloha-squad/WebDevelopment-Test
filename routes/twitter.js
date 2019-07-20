@@ -19,7 +19,7 @@ exports.nodeTwitterApi = function (request, response) {
     var paramsSearch = {
         q: '%23' + request.body.searchTerm,
         lang: 'en',
-        count: 2,
+        count: 4,
         tweet_mode: 'extended'
     };
 

@@ -110,3 +110,11 @@ small {
     font-size: 90%;
     font-weight: 400;
 }
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
