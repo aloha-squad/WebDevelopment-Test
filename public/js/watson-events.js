@@ -33,16 +33,14 @@ var WatsonApi = {
     },
     // Draw in the watson session the results
     drawAnalyctics: function(watsonData){
+        console.log(watsonData);
         let watsonEmotions = watsonData.success.emotion.document.emotion;
 
-        console.log(watsonData);
-        console.log('desenhar na tela resultados')
-
-
-        $('#card-angry').val(watsonEmotions.anger.toFixed(4))
-        $('#card-disgust').val(watsonEmotions.disgust.toFixed(4))
-        $('#card-fear').val(watsonEmotions.fear.toFixed(4))
-        $('#card-joy').val(watsonEmotions.joy.toFixed(4))
-        $('#card-sadness').val(watsonEmotions.sadness.toFixed(4))
+       
+        $('#card-angry').val((watsonEmotions.anger * 100).toFixed(2) + "%")
+        $('#card-disgust').val((watsonEmotions.disgust * 100).toFixed(2) + "%")
+        $('#card-fear').val((watsonEmotions.fear * 100).toFixed(2) + "%")
+        $('#card-joy').val((watsonEmotions.joy * 100).toFixed(2) + "%")
+        $('#card-sadness').val((watsonEmotions.sadness * 100).toFixed(2) + "%")
     }
 };

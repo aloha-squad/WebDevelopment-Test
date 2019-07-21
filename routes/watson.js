@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const Twit = require('twit')
-const apiKeyWatson = require('../config/watson.json').apikey;
+const apiKeyWatson = require('../config/config.json').Watson.apikey;
 
 // var fs = require('fs');
 const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');

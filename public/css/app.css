@@ -1,46 +1,71 @@
+/** ------ General to Page --------**/
+
+.card {
+    border: 0;
+    margin: 1rem auto;
+}
+
 /** ------ Search Section --------**/
 
 .section-search {
     display: block;
     background-color: #481e69;
-    padding: 50px;
+    padding: 2.5rem;
 }
 
 #tweetsSearch {
     position: relative;
     width: 50%;
     margin: auto;
+    min-width: 300px;
+    max-width: 900px;
+}
+
+#tweetsSearch label {
+    font-weight: 600;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: .8rem;
 }
 
 #searchTerm {
     border-radius: 5rem;
     border: none;
+    padding: .375rem 3.2rem .375rem .75rem;
+    min-width: 300px;
+    max-width: 900px;
+    background-color: rgb(232, 240, 254) !important;
 }
 
 #tweetsSearch button[type='submit'] {
     position: absolute;
-    top: .2rem;
-    right: .95rem;
+    bottom: .1rem;
+    right: .5rem;
+    font-size: .975rem;
     background: transparent !important;
     border: none;
-    color: #000;
+    color: #481e69;
+    padding: .35rem .7rem;
+    outline: none;
+    box-shadow: none;
 }
 
 /** ------ Tweets Section --------**/
-.card{
-    border: 0;
+
+.card-twitter {
+    border-radius: 1.2rem 1.2rem 0 0;
+    overflow: hidden;
 }
 
 .section-tweets {
     display: block;
-    padding: 50px;
 }
 
 .card-header {
     background-color: #50abf1;
     border-color: #50abf1;
     color: #fff;
-    padding: 1.2rem 1.5rem;
+    padding: 1.2rem 1.8rem;
 }
 
 .card-title {
@@ -48,6 +73,7 @@
     margin: 0;
 }
 
+.card-title svg,
 .card-title i {
     margin-right: .5rem;
 }
@@ -61,20 +87,28 @@
     overflow-y: auto;
 }
 
-.tweets-result{
-    color: #999999;
+.tweets-result {
+    color: #50abf1;
     text-align: center;
-    padding: 1.2rem 1.5rem;
+    padding: 1rem 1.5rem;
     border-bottom: 1px solid #f5f5f5;
 }
 
 /** ------ Tweets Content --------**/
-.tweets-area li{
+
+.tweets-area li {
     float: left;
     width: 100%;
     padding: 1.2rem 1.5rem;
     border-bottom: 1px solid #f5f5f5;
+    border-left: 3px solid transparent;
+    transition: 200ms ease-in-out;
     cursor: pointer;
+}
+
+.tweets-area li:hover {
+    background: #f5f5f5;
+    /* #f0f0f0 */
 }
 
 .tweet-content {
@@ -90,7 +124,7 @@
     margin-left: -80px;
 }
 
-#cardTweets .tweet-info{
+#cardTweets .tweet-info {
     display: block;
     width: 100%;
     float: left;
@@ -98,6 +132,11 @@
 
 #cardTweets .screenName {
     display: inline-block;
+    font-size: .9rem;
+}
+
+.tweet-selected {
+    border-left: 3px solid #481e69 !important;
 }
 
 /** ------ MAPS --------**/
@@ -107,9 +146,94 @@
     width: 100%;
 }
 
-
 /** ------ Watson Section --------**/
-.section-analyze{
+
+.section-analyze {
     background: #171717;
     color: #fff;
+}
+
+.analyze-header-area {
+    position: relative;
+    display: block;
+    width: 100%;
+    float: left;
+    /* margin-bottom: 1rem; */
+}
+
+.section-analyze h2 {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    line-height: 3rem;
+    margin: 0;
+    float: left;
+}
+
+.section-analyze small {
+    position: relative;
+    width: 80%;
+    float: left;
+}
+
+.watson-analyze-btn {
+    position: relative;
+    display: inline-block;
+    width: 19%;
+    margin: auto;
+    text-align: right;
+    height: 100%;
+}
+
+.watson-analyze-btn .btn {
+    display: block;
+    float: right;
+    margin: auto;
+    border: 0;
+    border-radius: 0;
+    background: #282828;
+    padding: 1rem;
+}
+
+.tweet-highlight {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.3rem;
+    margin: 2.5rem 0;
+}
+
+.mini-card {
+    margin: 15px 0;
+    border: 0;
+    border-radius: 0;
+    background: #282828;
+    padding: 1rem;
+}
+
+.mini-card svg,
+.mini-card i {
+    display: block;
+    margin: auto;
+    font-size: 1.75rem;
+}
+
+.mini-card label {
+    display: block;
+    text-align: center;
+    font-size: 1rem;
+    margin: .75rem 0;
+}
+
+.mini-card input {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    font-size: 1.1rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+    box-shadow: none;
 }

@@ -1,42 +1,79 @@
 <section class="section-search">
     <form id="tweetsSearch" action="/searchTweets" method="post" class="form-horizontal">
         <input type="hidden" id="username" name="username" value="{{username}}">
+        <label for="searchTerm">Busque a Hashtag no Twitter</label>
         <input type="text" id="searchTerm" name="searchTerm" placeholder="Busque pela Hashtag" class="form-control" required>
-        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
+        <button type="submit" class="btn btn-primary btn-sm">
+            <i class="fas fa-search"></i>
+        </button>
     </form>
 </section>
 
-<section class="section-tweets">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div id="map"></div>
-                <script>
-                    var map;
-                    var initPosition = {
-                        lat: 25,
-                        lng: 0
-                    }
-
-                    function initMap() {
-                        map = new google.maps.Map(document.getElementById('map'), {
-                            center: initPosition,
-                            zoom: 2
-                        });
-                    }
-                </script>
+<section class="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="au-breadcrumb-content">
+                    <div class="au-breadcrumb-left">
+                        <ul class="list-unstyled list-inline au-breadcrumb__list">
+                            <li class="list-inline-item">
+                                <a href="/home">Página Inicial</a>
+                            </li>
+                            <li class="list-inline-item seprate">
+                                <span>/</span>
+                            </li>
+                            <li class="list-inline-item active">
+                                <strong>{{pageName}}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+</section>
 
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                   <h3 class="card-title"><i class="fab fa-twitter"></i> Tweets</h3> 
+<section class="section-tweets">
+    <div class="container">
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div id="map"></div>
+                    <script>
+                        var map;
+                        // Center world map
+                        var initPosition = {
+                            lat: 25,
+                            lng: 0
+                        }
+
+                        function initMap() {
+                            map = new google.maps.Map(document.getElementById('map'), {
+                                center: initPosition,
+                                zoom: 2
+                            });
+                        }
+                    </script>
                 </div>
-                <div class="card-body tweets-area">
-                    <div class="tweets-result"><small>Nenhuma busca foi realizada no momento</small></div>
-                    
-                    <ul id="cardTweets"></ul>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card card-twitter">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fab fa-twitter"></i> Tweets</h3>
+                    </div>
+                    <div class="card-body tweets-area">
+                        <div class="tweets-result">
+                            <small>Nenhuma busca foi realizada no momento</small>
+                        </div>
+
+                        <ul id="cardTweets"></ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,39 +81,61 @@
 </section>
 
 <section class="section-analyze">
-    <h2>Watson Analise</h2> 
-    <button type="button" class="btn btn-primary btn-sm" id="watsonAnalyzeBtn"><i class="fas fa-search"></i> Analisar </button>
-    <input type="hidden" id="watsonText" name="watsonText" value="" data-id="">
-    <p class="tweet-highlight" id="tweet-highlight">"Texto do usuário"</p>
+    <div class="container">
+        <div class="analyze-header-area">
+            <h2>Watson Analise</h2>
+            <small>Faça analises com os tweets atraves do Watson Natural Language Understanding</small>
+            
+            <div class="watson-analyze-btn">
+                <button type="button" class="btn btn-primary btn-sm" id="watsonAnalyzeBtn"> Analisar
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
 
-    <div class="mini-cards-area">
-        <div class="mini-card">
-            <i class="fas fa-search"></i>
-            <label>raiva</label>
-            <input id="card-angry" type="number" value="0.9"/>
-        </div>
-        <div class="mini-card">
-            <i class="fas fa-search"></i>
-            <label>indignação</label>
-            <input id="card-disgust" type="number" value="0.9"/>
-        </div>
-        <div class="mini-card">
-            <i class="fas fa-search"></i>
-            <label>medo</label>
-            <input id="card-fear" type="number" value="0.9"/>
-        </div>
-        <div class="mini-card">
-            <i class="fas fa-search"></i>
-            <label>felicidade</label>
-            <input id="card-joy" type="number" value="0.9"/>
-        </div>
-        <div class="mini-card">
-            <i class="fas fa-search"></i>
-            <label>tristeza</label>
-            <input id="card-sadness" type="number" value="0.9"/>
+        <input type="hidden" id="watsonText" name="watsonText" value="" data-id="">
+        <p class="tweet-highlight" id="tweet-highlight">"Texto do usuário"</p>
+
+        <div class="row mini-cards-grid">
+            <div class="col-lg-2 offset-lg-1 col-sm-6 col-12">
+                <div class="mini-card">
+                    <i class="far fa-angry"></i>
+                    <label>Raiva</label>
+                    <input id="card-angry" type="text" value="0.9" readonly/>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 col-12">
+                <div class="mini-card">
+                    <i class="far fa-tired"></i>
+                    <label>Indignação</label>
+                    <input id="card-disgust" type="text" value="0.9" readonly/>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 col-12">
+                <div class="mini-card">
+                    <i class="far fa-sad-cry"></i>
+                    <label>Medo</label>
+                    <input id="card-fear" type="text" value="0.9" readonly/>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 col-12">
+                <div class="mini-card">
+                    <i class="far fa-smile"></i>
+                    <label>Felicidade</label>
+                    <input id="card-joy" type="text" value="0.9" readonly/>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 col-12">
+                <div class="mini-card">
+                    <i class="far fa-frown"></i>
+                    <label>Tristeza</label>
+                    <input id="card-sadness" type="text" value="0.9" readonly/>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
+{{!-- Script dependency for google maps api --}}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfgH-VXQ1NnmhBwIi68sATUGcxXTdhrHI&callback=initMap" async
     defer></script>

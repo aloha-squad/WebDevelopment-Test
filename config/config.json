@@ -4,5 +4,13 @@
         "consumer_secret": "2azN3MLX3uRKcH4vdP7uIomDK2g3Ph6GguYl7x1W2wJnbBacyY",
         "access_token": "1151608258811052033-wLXs4QgTpxMyCFo9aVuCWBCsrWxzJw",
         "access_token_secret": "w7RgtAkrJrEJqZ6xf6xMlSOyKYSfuKQzmTrfRkGPJVdno" 
+    },
+    "Watson": {
+        "apikey": "MDdIGqQTLPXdN2dZfayLT1Lx85AAOc6pWnGvmbhX7eIP",
+        "iam_apikey_description": "Auto-generated for key b31728ed-5f0f-4997-89eb-4d22db3b0aba",
+        "iam_apikey_name": "Auto-generated service credentials",
+        "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+        "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/f6f143023c7846398bf5995d19b318dc::serviceid:ServiceId-0db59380-f12a-4b2f-9d92-6a0a307533c1",
+        "url": "https://gateway.watsonplatform.net/natural-language-understanding/api"
     }
 }

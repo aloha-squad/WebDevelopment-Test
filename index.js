@@ -36,7 +36,8 @@ const watsonApi = require('./routes/watson');
 /** Pages Routes Website **/
 app.get('/home', function (request, response) {
     response.clearCookie('user');
-    response.clearCookie('displayName');
+	response.clearCookie('displayName');
+	response.clearCookie('userImage');
     
 	response.render('home', {
         homepage: true,
@@ -50,9 +51,11 @@ app.get('/app', function (request, response) {
 		response.redirect('/home');
     else{
         response.render('app', {
-            pageId: "app",
+			pageId: "app",
+			pageName: "Busca Twitter",
             username: request.cookies.user,
-            displayName: request.cookies.displayName,
+			displayName: request.cookies.displayName,
+			userImage: request.cookies.userImage,
             style: ['/css/main.css','/css/app.css'],
             javascript: ['/js/app.js', '/js/watson-events.js']
         });
@@ -102,7 +105,8 @@ app.get('/twitter/return', passport.authenticate('twitter',{
     if (request.isAuthenticated(request,response)) {
         // console.log(request.user)
         response.cookie('user', request.user.username);
-        response.cookie('displayName', request.user.displayName);
+		response.cookie('displayName', request.user.displayName);
+		response.cookie('userImage', request.user._json.profile_image_url_https);
         
 		response.redirect('/app');
 	}

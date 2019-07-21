@@ -1,8 +1,13 @@
+var searchTerm;
+
 (function () {
     'use strict';
 
     $('#tweetsSearch').on('submit', function (event) {
         event.preventDefault();
+
+        //Storage Search Term to future uses
+        searchTerm = $(this).serializeArray()[1].value;
         
         $.ajax({
             url: this.action,
@@ -18,7 +23,7 @@
                     var htmlTable = '';
                     for (var key in listTweets) {
                         htmlTable += '<li class="tweet-list" data-id="'+ listTweets[key].id +'"><div class="tweet-content"><img src="' + listTweets[key].user.profile_image_url_https + '" alt="">' +
-                            '<div class="tweet-info"><label class="screenName left">@' + listTweets[key].user.screen_name + '</label>' +
+                            '<div class="tweet-info"><label class="screenName left"><strong>@' + listTweets[key].user.screen_name + '</strong></label>' +
                             '<label class="screenName right">' + listTweets[key].user.location + '</label></div>' +
                             '<p class="tweet-text">' + listTweets[key].full_text + '</p>'
                         '</li>';
@@ -87,7 +92,7 @@ function addMarkers(markerPosition, userName) {
     });
 
     var infoWindow = new google.maps.InfoWindow({
-        content: '<h3>' + userName + '</h3>'
+        content: '<h4>' + userName + '</h4><small>#'+ searchTerm +'</small>'
     });
 
     marker.addListener('click', function (e) {
@@ -100,8 +105,8 @@ function tweetsEvent() {
     $('.tweet-list').on('click', function () {
         $('.tweet-list').removeClass("tweet-selected");
         $(this).addClass("tweet-selected");
-        $('#tweet-highlight').text('"'+$(this).children(".tweet-text").text()+'"');
-        $('#watsonText').val($(this).children(".tweet-text").text());
+        $('#tweet-highlight').text('"'+$(this).find(".tweet-text").text()+'"');
+        $('#watsonText').val($(this).find(".tweet-text").text());
         $('#watsonText').attr('data-id', $(this).attr('data-id'));
     });
 }
