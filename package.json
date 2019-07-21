@@ -1,7 +1,7 @@
 {
   "name": "webdevelopment-test",
   "version": "1.0.0",
-  "description": "O objetivo deste desafio é permitir uma melhor avaliação das suas habilidades como candidato à vaga de fullstack developer. Este desafio deve ser feito individualmente.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

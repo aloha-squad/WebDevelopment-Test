@@ -2,7 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express().use(function (req, res, next) {
 	if (req.header('x-forwarded-proto') == 'http') {
-		res.redirect(301, 'https://' + 'mywebsite.herokuapp.com' + req.url)
+		res.redirect(301, 'https://' + 'webdevelopment-caio.herokuapp.com' + req.url)
 		return
 	}
 	next()
@@ -82,7 +82,7 @@ passport.use(
 	new TwitterStrategy({
 			consumerKey: 'JEfRUKgIc6VjjYBD9c4zR8XBi',
 			consumerSecret: '2azN3MLX3uRKcH4vdP7uIomDK2g3Ph6GguYl7x1W2wJnbBacyY',
-			callbackURL: 'http://localhost:3000/twitter/return'
+			callbackURL: '/twitter/return'
 		},
 		function (token, tokenSecret, profile, done) {
             return done(null,profile)
