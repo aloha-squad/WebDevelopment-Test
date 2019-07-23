@@ -1,12 +1,5 @@
-const express = require('express');
-const app = express();
 const Twit = require('twit')
 const config = require('../config/config.json');
-
-app.use(express.json()); // to support JSON-encoded bodies
-app.use(express.urlencoded({ // to support URL-encoded bodies
-	extended: true
-}));
 
 var nodeTwitter = new Twit({
     consumer_key: config.Twitter.consumer_key,
@@ -19,7 +12,7 @@ exports.nodeTwitterApi = function (request, response) {
     var paramsSearch = {
         q: '%23' + request.body.searchTerm,
         lang: 'en',
-        count: 4,
+        count: 8,
         tweet_mode: 'extended'
     };
 

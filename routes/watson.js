@@ -1,9 +1,5 @@
-const express = require('express');
-const app = express();
-const Twit = require('twit')
 const apiKeyWatson = require('../config/config.json').Watson.apikey;
 
-// var fs = require('fs');
 const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 
 var nlu = new NaturalLanguageUnderstandingV1({
@@ -21,8 +17,7 @@ exports.nodeWatsonAnalyze = function (request, response) {
                 text: textToWatson,
                 features: {
                     sentiment: {},
-                    emotion: {},
-                    keywords: {}
+                    emotion: {}
                 }
             },
             function (err, response) {

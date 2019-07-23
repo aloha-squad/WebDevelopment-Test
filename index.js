@@ -10,6 +10,13 @@ const app = express().use(function (req, res, next) {
 const server = require('https').createServer(app);
 const porta = process.env.PORT || 3000;
 
+// Other modules
+const twitterApi = require('./routes/twitter');
+const watsonApi = require('./routes/watson');
+const sqlConnection = require('./routes/db');
+const conSql = sqlConnection.sqlConfig();
+//---
+
 // General Setup
 app.use(express.json()); // to support JSON-encoded bodies
 app.use(express.urlencoded({ // to support URL-encoded bodies
@@ -57,9 +64,6 @@ app.engine('handlebars', handleBars({
 }));
 app.set('view engine', 'handlebars');
 //---
-
-const twitterApi = require('./routes/twitter');
-const watsonApi = require('./routes/watson');
 
 /** Pages Routes Website **/
 app.get('/home', function (request, response) {
@@ -180,9 +184,6 @@ app.post('/watson/analyze', function (request, response) {
 })
 
 /** Routes Db Sql **/
-const sqlConnection = require('./routes/db');
-const conSql = sqlConnection.sqlConfig();
-
 app.get('/get/ranking', function (request, response) {
 	sqlConnection.getRanking(request, response);
 })
@@ -192,11 +193,8 @@ app.post('/change/ranking', function (request, response) {
 })
 /** END Routes Db Sql **/
 
-//All Routes and 404 page redirects to here
+//All Routes and 404 page for now only render HomePage
 app.get('*', function (request, response) {
-	// response.clearCookie('user');
-	// response.clearCookie('displayName');
-
 	response.render('home', {
 		homepage: true,
 		style: ['/css/main.css', '/css/home.css'],

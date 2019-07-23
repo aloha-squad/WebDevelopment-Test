@@ -1,13 +1,5 @@
-const express = require('express');
-const app = express();
 const mysql = require('mysql');
-const path = require('path');
 const config = require('../config/config.json');
-
-app.use(express.json()); // to support JSON-encoded bodies
-app.use(express.urlencoded({ // to support URL-encoded bodies
-    extended: true
-}));
 
 // Conect to SQL using Config
 var conSql = mysql.createConnection({
@@ -22,13 +14,13 @@ exports.sqlConfig = function () {
     conSql.connect(function (err) {
         if (err) {
             console.log(err);
-            if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+            if (err.code === 'PROTOCOL_CONNECTION_LOST') { // See error protocol is connection lost
                 sqlConfig();
             }
         } else {
             setInterval(function () {
                 conSql.query("select * from ranking where feeling='angry'");
-            }, 2000);
+            }, 5000);
         }
     });
     return conSql;
@@ -49,7 +41,7 @@ exports.getRanking = function (request, response) {
 }
 
 exports.changeRanking = function (request, response) {
-    console.log(request.body);
+    // console.log(request.body);
 
     switch (request.body.action) {
         case "change":

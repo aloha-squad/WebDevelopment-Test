@@ -72,6 +72,10 @@ header {
     box-shadow: 0 -2px 4px 0px rgba(0, 0, 0, .3);
 }
 
+.headerSpace{
+    height: 60px;
+}
+
 header .row {
     height: 100%;
     margin: 0 !important;
@@ -92,9 +96,9 @@ header .sign-in-header a {
     border: .15rem solid #2ec2fa;
     color: #2ec2fa;
     font-weight: 600;
-    padding: 0.35rem 0.85rem;
+    padding: 0.4rem 0.85rem;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: .9rem;
     transition: 150ms ease-in-out;
 }
 

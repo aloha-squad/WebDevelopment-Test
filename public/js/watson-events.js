@@ -3,7 +3,7 @@ var WatsonApi = {
     // Get data from Api and create a sessionStorage of tweet
     watsonAnalyze: function (idTweet, textTweet) {
         if (textTweet != '' && textTweet != null) {
-            console.log('watson analizando')
+            // console.log('watson analizando')
             $.ajax({
                 url: '/watson/analyze',
                 type: 'post',
@@ -33,7 +33,7 @@ var WatsonApi = {
     },
     // Draw in the watson session the results
     drawAnalyctics: function (watsonData) {
-        console.log(watsonData);
+        // console.log(watsonData);
         let watsonEmotions = watsonData.success.emotion.document.emotion;
 
         $('#card-angry').val((watsonEmotions.anger * 100).toFixed(2) + "%")
@@ -77,7 +77,7 @@ var WatsonApi = {
                 text: "test Text complete"
             },
             success: function (data) {
-                console.log(data);
+                // console.log(data);
             },
             error: function (data) {
                 console.warn("Error", data);

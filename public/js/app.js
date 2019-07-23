@@ -14,7 +14,7 @@ var searchTerm;
             type: 'post',
             data: $(this).serialize(),
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 let listTweets = data.success.statuses;
 
                 $('.tweets-result').html('<small>Foram encontrados <strong>' + listTweets.length + '</strong> tweets</small>')
@@ -129,6 +129,7 @@ function changePosMaps(lat, lng) {
     map.panTo(new google.maps.LatLng(lat, lng));
 }
 
+// Start Carousel Ranking and setup
 function carouselRanking() {
     $(".owl-carousel").owlCarousel({
         loop: true,
@@ -136,12 +137,13 @@ function carouselRanking() {
         center: true,
         margin: 10,
         items: 1,
-        autoplay: false,
+        autoplay: true,
         autoplayTimeout: 15000,
         autoplayHoverPause: true
     });
 }
 
+// Menu to filter and show the ranking
 function selectRanking(category,element){
     $('.categories-btn .btn').removeClass('selected');
     $(element).addClass('selected');

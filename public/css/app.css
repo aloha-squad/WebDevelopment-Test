@@ -31,7 +31,7 @@
 #searchTerm {
     border-radius: 5rem;
     border: none;
-    padding: .375rem 3.2rem .375rem .75rem;
+    padding: .475rem 3.2rem .375rem .75rem;
     min-width: 300px;
     max-width: 900px;
     background-color: rgb(232, 240, 254) !important;
@@ -286,6 +286,10 @@
     position: relative;
     display: block;
     overflow: hidden;
+}
+
+.ranking-carousel{
+    min-height: 180px;
 }
 
 .carousel-header {
