@@ -26,7 +26,7 @@ exports.nodeTwitterApi = function (request, response) {
     nodeTwitter.get('search/tweets', paramsSearch, function (err, data) {
         for(var key in data.statuses){
             if(data.statuses[key].retweeted_status) {data.statuses[key].full_text = data.statuses[key].retweeted_status.full_text;}
-            console.log(data.statuses[key])
+            // console.log(data.statuses[key])
         }
         
         if(err) {

@@ -8,7 +8,7 @@ var searchTerm;
 
         //Storage Search Term to future uses
         searchTerm = $(this).serializeArray()[1].value;
-        
+
         $.ajax({
             url: this.action,
             type: 'post',
@@ -22,7 +22,8 @@ var searchTerm;
                 let cardBody = function () {
                     var htmlTable = '';
                     for (var key in listTweets) {
-                        htmlTable += '<li class="tweet-list" data-id="'+ listTweets[key].id +'"><div class="tweet-content"><img src="' + listTweets[key].user.profile_image_url_https + '" alt="">' +
+                        htmlTable += '<li class="tweet-list" data-id="' + listTweets[key].id + '" data-user="' + listTweets[key].user.screen_name + '" data-lat="" data-lng="">' +
+                            '<div class="tweet-content"><img src="' + listTweets[key].user.profile_image_url_https + '" alt="">' +
                             '<div class="tweet-info"><label class="screenName left"><strong>@' + listTweets[key].user.screen_name + '</strong></label>' +
                             '<label class="screenName right">' + listTweets[key].user.location + '</label></div>' +
                             '<p class="tweet-text">' + listTweets[key].full_text + '</p>'
@@ -46,16 +47,20 @@ var searchTerm;
         let textToWatson = $('#watsonText').val();
         let watsonData = WatsonApi.checkStorageAnalytics(idToWatson);
 
-        if(!watsonData){
-            WatsonApi.watsonAnalyze(idToWatson,textToWatson);
-        }
-        else{
+        if (!watsonData) {
+            WatsonApi.watsonAnalyze(idToWatson, textToWatson);
+        } else {
             WatsonApi.drawAnalyctics(watsonData);
         }
-    })
+    });
+
+    // When analyze button press initialize the watson-events.js logics
+    $(document).ready(function () {
+        WatsonApi.getRanking();
+    });
 })();
 
-// Api Google GeoCode to transform the text location in a lat and long
+// Api Google GeoCode to transform the text location in a lat and long, add to tweet the lat and lng for other interations if necessary
 function getGeo(location, userName) {
     if (location == null || location == '') {
         return true;
@@ -69,10 +74,13 @@ function getGeo(location, userName) {
             url: 'https://maps.googleapis.com/maps/api/geocode/json',
             data: data,
             success: function (data) {
-                // console.log(data);
-
-                if (data.results.length > 0)
+                if (data.results.length > 0) {
                     addMarkers(data.results[0].geometry.location, ('@' + userName));
+                    $('.tweet-list[data-user="' + userName + '"]').attr({
+                        'data-lat': data.results[0].geometry.location.lat,
+                        'data-lng': data.results[0].geometry.location.lng
+                    })
+                }
             },
             error: function (data) {
                 console.warn(data.error);
@@ -92,7 +100,7 @@ function addMarkers(markerPosition, userName) {
     });
 
     var infoWindow = new google.maps.InfoWindow({
-        content: '<h4>' + userName + '</h4><small>#'+ searchTerm +'</small>'
+        content: '<h4>' + userName + '</h4><small>#' + searchTerm + '</small>'
     });
 
     marker.addListener('click', function (e) {
@@ -101,12 +109,42 @@ function addMarkers(markerPosition, userName) {
 }
 
 function tweetsEvent() {
-    // General Setup -  Events Tweets
+    // General Setup -  Events Tweets to watson section
     $('.tweet-list').on('click', function () {
         $('.tweet-list').removeClass("tweet-selected");
         $(this).addClass("tweet-selected");
-        $('#tweet-highlight').text('"'+$(this).find(".tweet-text").text()+'"');
+        $('#tweet-highlight').text('"' + $(this).find(".tweet-text").text() + '"');
         $('#watsonText').val($(this).find(".tweet-text").text());
         $('#watsonText').attr('data-id', $(this).attr('data-id'));
+
+        //move map to pin position of the select user
+        if ($(this).attr('data-lat') != "" && $(this).attr('data-lng') != "") {
+            changePosMaps($(this).attr('data-lat'), $(this).attr('data-lng'))
+        }
     });
+}
+
+function changePosMaps(lat, lng) {
+    // Use variable Map to change lat and Lng on click Tweet
+    map.panTo(new google.maps.LatLng(lat, lng));
+}
+
+function carouselRanking() {
+    $(".owl-carousel").owlCarousel({
+        loop: true,
+        // nav: true,
+        center: true,
+        margin: 10,
+        items: 1,
+        autoplay: false,
+        autoplayTimeout: 15000,
+        autoplayHoverPause: true
+    });
+}
+
+function selectRanking(category,element){
+    $('.categories-btn .btn').removeClass('selected');
+    $(element).addClass('selected');
+    $('.ranking-carousel').addClass('owl-hidden');
+    $('.ranking-carousel[data-ranking="'+category+'"]').removeClass('owl-hidden');
 }

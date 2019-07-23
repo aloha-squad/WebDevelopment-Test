@@ -3,7 +3,7 @@
         <input type="hidden" id="username" name="username" value="{{username}}">
         <label for="searchTerm">Busque a Hashtag no Twitter</label>
         <input type="text" id="searchTerm" name="searchTerm" placeholder="Busque pela Hashtag" class="form-control" required>
-        <button type="submit" class="btn btn-primary btn-sm">
+        <button type="submit" class="btn btn-primary btn-sm" title="pesquisar">
             <i class="fas fa-search"></i>
         </button>
     </form>
@@ -35,10 +35,11 @@
 
 <section class="section-tweets">
     <div class="container">
-        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+        <p> Os tweets encontrados aparecem no card Tweets e caso encontradas as localizações dos usuários as mesmas serão marcadas
+            com um pin no mapa, clique no pin dentro do mapa para expandir e ver as de quem era o tweet e a hashtag monitorada.
+            Selecione o tweet desejado no canto para maiores analises, faça bom aproveitamento do
+            <strong>Watson Natural Language Understanding.</strong>
+        </p>
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
@@ -82,56 +83,56 @@
 
 <section class="section-analyze">
     <div class="container">
-        <div class="analyze-header-area">
+        <div class="title-section">
             <h2>Watson Analise</h2>
             <small>Faça analises com os tweets atraves do Watson Natural Language Understanding</small>
-            
+
             <div class="watson-analyze-btn">
-                <button type="button" class="btn btn-primary btn-sm" id="watsonAnalyzeBtn"> Analisar
+                <button type="button" class="btn btn-primary btn-sm" id="watsonAnalyzeBtn" title="Analisar a frase"> Analisar
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
         </div>
 
+        <!-- storage data for watson call -->
         <input type="hidden" id="watsonText" name="watsonText" value="" data-id="">
         <p class="tweet-highlight" id="tweet-highlight">"Texto do usuário"</p>
 
         <div class="row mini-cards-grid">
-            <div class="col-lg-2 offset-lg-1 col-sm-6 col-12">
+            {{# each watsonFeelings}}
+            <div class="col-lg-2 {{#is @index '==' 0}}offset-lg-1 {{/is}}col-sm-6 col-12">
                 <div class="mini-card">
-                    <i class="far fa-angry"></i>
-                    <label>Raiva</label>
-                    <input id="card-angry" type="text" value="0.9" readonly/>
+                    <i class="far fa-{{this.icon}}"></i>
+                    <label>{{this.title}}</label>
+                    <input id="card-{{this.en}}" type="text" value="0%" readonly/>
                 </div>
             </div>
-            <div class="col-lg-2 col-sm-6 col-12">
-                <div class="mini-card">
-                    <i class="far fa-tired"></i>
-                    <label>Indignação</label>
-                    <input id="card-disgust" type="text" value="0.9" readonly/>
-                </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+<section class="section-ranking">
+    <div class="container">
+        <div class="title-section">
+            <h2>Ranking de Analises</h2>
+            <small>Veja o <strong>Top 3</strong> de cada categoria/sentimento analisadas pelo Watson Natural Language Understanding através do IBM
+                Test
+            </small>
+        </div>
+
+        <div class="categories-ranking">
+            {{# each watsonFeelings}}
+            <div class="categories-btn">
+                <button class="btn {{#is @index '==' 0}}selected{{/is}}" onclick="selectRanking('{{this.en}}',this)">{{this.title}}</button>
             </div>
-            <div class="col-lg-2 col-sm-6 col-12">
-                <div class="mini-card">
-                    <i class="far fa-sad-cry"></i>
-                    <label>Medo</label>
-                    <input id="card-fear" type="text" value="0.9" readonly/>
-                </div>
-            </div>
-            <div class="col-lg-2 col-sm-6 col-12">
-                <div class="mini-card">
-                    <i class="far fa-smile"></i>
-                    <label>Felicidade</label>
-                    <input id="card-joy" type="text" value="0.9" readonly/>
-                </div>
-            </div>
-            <div class="col-lg-2 col-sm-6 col-12">
-                <div class="mini-card">
-                    <i class="far fa-frown"></i>
-                    <label>Tristeza</label>
-                    <input id="card-sadness" type="text" value="0.9" readonly/>
-                </div>
-            </div>
+            {{/each}}
+        </div>
+
+        <div class="carousel-area">
+            {{# each watsonFeelings}}
+            <div class="owl-carousel owl-theme ranking-carousel {{#is @index '!=' 0}}owl-hidden{{/is}}" data-ranking="{{this.en}}"></div>
+            {{/each}}
         </div>
     </div>
 </section>

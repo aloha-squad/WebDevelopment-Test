@@ -14,7 +14,7 @@ var nlu = new NaturalLanguageUnderstandingV1({
 
 exports.nodeWatsonAnalyze = function (request, response) {
     let textToWatson = request.body.text;
-    console.log(textToWatson);
+    // console.log(textToWatson);
 
     return new Promise(function (resolve, reject) {
         nlu.analyze({

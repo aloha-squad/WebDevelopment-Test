@@ -8,12 +8,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Web Development Test"> 
-    <link rel='shortcut icon' type='image/x-icon' href='/images/enotify-icon.png' />
+    <meta name="description" content="Web Development Test">
+    <link rel='shortcut icon' type='image/x-icon' href='/images/favicon.png' />
 
     <!-- Font -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+    {{!-- <link rel="dns-prefetch" href="//fonts.googleapis.com"> --}}
 
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/all.min.css" />
@@ -21,8 +20,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/bootstrap.min.css" />
 
-        {{# each style}}
-    <link rel="stylesheet" type="text/css" href="{{this}}" /> {{/each}}
+    {{# each style}}
+    <link rel="stylesheet" type="text/css" href="{{this}}" /> 
+    {{/each}}
 </head>
 
 <body>
@@ -30,7 +30,8 @@
         <header>
             <div class="row">
                 <div class="col-xl-1 col-sm-2 col-4 header-logo">
-                    IBM <strong>Test</strong>
+                    IBM
+                    <strong>Test</strong>
                 </div>
                 {{#if homepage}}
                 <div class="col-xl-1 offset-xl-10 col-sm-2 offset-sm-8 col-4 offset-4 sign-in-header">
@@ -41,14 +42,16 @@
                     <button type="button" class="btn account-wrap dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src='{{userImage}}'>
                         <span class="account-wrap-content">
-                        {{displayName}}
-                        <small>@{{username}}</small>
+                            {{displayName}}
+                            <small>@{{username}}</small>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="far fa-clipboard"></i>Meus Dados</a>
+                        <a class="dropdown-item" href="#">
+                            <i class="far fa-clipboard"></i>Meus Dados</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/home"><i class="fas fa-power-off"></i>Sair</a>
+                        <a class="dropdown-item" href="/home">
+                            <i class="fas fa-power-off"></i>Sair</a>
                     </div>
                 </div>
                 {{/if}}
@@ -65,7 +68,8 @@
     <footer>
         <div class="footerContainer">
             <small>
-                Projeto desenvolvido por <strong>Caio Santos Americo</strong>
+                Projeto desenvolvido por
+                <strong>Caio Santos Americo</strong>
             </small>
         </div>
     </footer>
