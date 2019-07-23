@@ -1,0 +1,31 @@
+{
+  "name": "webdevelopment-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GaidenX/WebDevelopment-Test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GaidenX/WebDevelopment-Test/issues"
+  },
+  "homepage": "https://github.com/GaidenX/WebDevelopment-Test#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.16.2",
+    "mysql": "^2.17.1",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
+    "twit": "^2.2.11",
+    "watson-developer-cloud": "^4.0.1"
+  }
+}

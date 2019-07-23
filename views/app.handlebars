@@ -1,0 +1,142 @@
+<section class="section-search">
+    <form id="tweetsSearch" action="/searchTweets" method="post" class="form-horizontal">
+        <input type="hidden" id="username" name="username" value="{{username}}">
+        <label for="searchTerm">Busque a Hashtag no Twitter</label>
+        <input type="text" id="searchTerm" name="searchTerm" placeholder="Busque pela Hashtag" class="form-control" required>
+        <button type="submit" class="btn btn-primary btn-sm" title="pesquisar">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+</section>
+
+<section class="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="au-breadcrumb-content">
+                    <div class="au-breadcrumb-left">
+                        <ul class="list-unstyled list-inline au-breadcrumb__list">
+                            <li class="list-inline-item">
+                                <a href="/">Página Inicial</a>
+                            </li>
+                            <li class="list-inline-item seprate">
+                                <span>/</span>
+                            </li>
+                            <li class="list-inline-item active">
+                                <strong>{{pageName}}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-tweets">
+    <div class="container">
+        <p> Os tweets encontrados aparecem no card Tweets e caso encontradas as localizações dos usuários as mesmas serão marcadas
+            com um pin no mapa, clique no pin dentro do mapa para expandir e ver as de quem era o tweet e a hashtag monitorada.
+            Selecione o tweet desejado no canto para maiores analises, faça bom aproveitamento do
+            <strong>Watson Natural Language Understanding.</strong>
+        </p>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div id="map"></div>
+                    <script>
+                        var map;
+                        // Center world map
+                        var initPosition = {
+                            lat: 25,
+                            lng: 0
+                        }
+
+                        function initMap() {
+                            map = new google.maps.Map(document.getElementById('map'), {
+                                center: initPosition,
+                                zoom: 2
+                            });
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card card-twitter">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fab fa-twitter"></i> Tweets</h3>
+                    </div>
+                    <div class="card-body tweets-area">
+                        <div class="tweets-result">
+                            <small>Nenhuma busca foi realizada no momento</small>
+                        </div>
+
+                        <ul id="cardTweets"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-analyze">
+    <div class="container">
+        <div class="title-section">
+            <h2>Watson Analise</h2>
+            <small>Faça analises com os tweets atraves do Watson Natural Language Understanding</small>
+
+            <div class="watson-analyze-btn">
+                <button type="button" class="btn btn-primary btn-sm" id="watsonAnalyzeBtn" title="Analisar a frase"> Analisar
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- storage data for watson call -->
+        <input type="hidden" id="watsonText" name="watsonText" value="" data-id="">
+        <p class="tweet-highlight" id="tweet-highlight">"Texto do usuário"</p>
+
+        <div class="row mini-cards-grid">
+            {{# each watsonFeelings}}
+            <div class="col-lg-2 {{#is @index '==' 0}}offset-lg-1 {{/is}}col-sm-6 col-12">
+                <div class="mini-card">
+                    <i class="far fa-{{this.icon}}"></i>
+                    <label>{{this.title}}</label>
+                    <input id="card-{{this.en}}" type="text" value="0%" readonly/>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+<section class="section-ranking">
+    <div class="container">
+        <div class="title-section">
+            <h2>Ranking de Analises</h2>
+            <small>Veja o <strong>Top 3</strong> de cada categoria/sentimento analisadas pelo Watson Natural Language Understanding através do IBM
+                Test
+            </small>
+        </div>
+
+        <div class="categories-ranking">
+            {{# each watsonFeelings}}
+            <div class="categories-btn">
+                <button class="btn {{#is @index '==' 0}}selected{{/is}}" onclick="selectRanking('{{this.en}}',this)">{{this.title}}</button>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="carousel-area">
+            {{# each watsonFeelings}}
+            <div class="owl-carousel owl-theme ranking-carousel {{#is @index '!=' 0}}owl-hidden{{/is}}" data-ranking="{{this.en}}"></div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+{{!-- Script dependency for google maps api --}}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfgH-VXQ1NnmhBwIi68sATUGcxXTdhrHI&callback=initMap" async
+    defer></script>

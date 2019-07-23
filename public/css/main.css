@@ -1,0 +1,213 @@
+/** ------ Global --------**/
+html, body {
+    font-family:'Lato';
+}
+
+small {
+    font-size: 90%;
+    font-weight: 400;
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+ul {
+    display: block;
+    list-style-type: none;
+    margin-block-start: 0px;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+}
+
+main {
+    display: block;
+    margin: auto;
+    float: left;
+    width: 100%;
+    background-color: #eff2f7;
+    color: #000;
+    overflow: hidden;
+}
+
+.main-container {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+section{
+    padding: 2.5rem;
+}
+
+.container{
+    max-width: 1500px!important;
+}
+
+.title-section{
+    position: relative;
+    display: block;
+    width: 100%;
+    float: left;
+}
+
+/** ------ Header --------**/
+header {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 60px;
+    margin-left: 0px;
+    padding: 0;
+    background: #fff;
+    color: #000;
+    z-index: 2;
+    border-bottom: 1px solid rgba(49, 211, 247, 0.5);
+    box-shadow: 0 -2px 4px 0px rgba(0, 0, 0, .3);
+}
+
+.headerSpace{
+    height: 60px;
+}
+
+header .row {
+    height: 100%;
+    margin: 0 !important;
+    text-align: center;
+}
+
+header .header-logo {
+    line-height: 60px;
+    cursor: default;
+}
+
+header .sign-in-header a {
+    outline: none !important;
+    text-decoration: none !important;
+    text-align: center;
+    line-height: 60px;
+    background: transparent;
+    border: .15rem solid #2ec2fa;
+    color: #2ec2fa;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    font-size: .9rem;
+    transition: 150ms ease-in-out;
+}
+
+header .sign-in-header a:hover {
+    background: #2ec2fa;
+    color: #fff;
+}
+
+.account-wrap{
+    position: absolute!important;
+    outline: none!important;
+    text-decoration: none!important;
+    border: 0!important;
+    box-shadow: none!important;
+    text-align: right;
+    background: transparent;
+    right: 0;
+}
+
+.account-wrap img{
+    height: 42px;
+    width: 42px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+.account-wrap-content{
+    display: inline-block;
+    vertical-align: bottom;
+    padding: 0 4px;
+    text-align: left;
+}
+
+.account-wrap-content small{
+    display: block;
+    font-size: .7rem;
+}
+
+.dropdown-menu{
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    box-shadow: 0 0px 2px 0px rgba(0, 0, 0, .3);
+}
+
+.dropdown-item{
+    line-height: 1;
+    font-size: .9rem;
+    padding: .75rem 1.5rem;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.dropdown-item:hover{
+    background-color: #2ec2fa;
+    color: #fff;
+}
+
+.dropdown-item i, .dropdown-item svg{
+    margin-right: 15px;
+}
+
+.dropdown-divider{
+    margin: 0;
+}
+
+/** ------ Breadcrumb --------**/
+.breadcrumb{
+    background-color: transparent;
+    border-radius: 0;
+    margin: 0;
+    padding: 1.25rem 1rem .75rem;
+}
+
+.au-breadcrumb-content{
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 8px;
+}
+
+.breadcrumb .list-inline-item{
+    color: #808080!important;
+    font-size: 14px;
+    cursor: default;
+}
+
+.breadcrumb .list-inline-item a{color: inherit;}
+
+/** ------ Footer --------**/
+footer {
+    position: relative;
+    display: block;
+    float: left;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #0d0f13;
+    color: white;
+}
+
+.footerContainer {
+    position: relative;
+    padding: 10px 0;
+    margin: auto;
+    text-align: center;
+}
+
+@media screen and (max-width: 540px) {
+    section{
+        padding: 1rem;
+    }
+}
