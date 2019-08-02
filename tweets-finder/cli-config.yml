@@ -53,6 +53,6 @@ chart-path : "chart/geofinder"
 
 # The IBM version of this configuration
 version : "0.0.3"
-ibm-generated-id : "b24ac850-2e5f-4640-bbdc-a40cbcf7ce73"
-ibm-cloud-app-id : "8803bf45-e6ee-40df-8f82-067c7fea49e8"
+ibm-generated-id : "d45e4941-1ded-457a-9183-080afab0ad5e"
+ibm-cloud-app-id : "fdef48ef-0ed9-4527-bb49-c258734fdde0"
 credentials-filepath : "server/localdev-config.json, vcap-local.js, credentials.json, localdev-config.json"
