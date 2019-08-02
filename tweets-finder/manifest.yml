@@ -6,5 +6,5 @@ applications:
   buildpack: sdk-for-nodejs
   command: npm start
   memory: 256M
-  domain: api.ng.bluemix.net
-  host: not-used
+  domain: us-south.cf.appdomain.cloud
+  host: ibmcloud
