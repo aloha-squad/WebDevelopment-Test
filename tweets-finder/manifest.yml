@@ -4,7 +4,7 @@ applications:
   timeout: 180
   name: GeoFinder
   buildpack: sdk-for-nodejs
-  command: npm start
+  command: npm run dev
   memory: 256M
-  domain: geofinder.mybluemix.net
-  host: ibmcloud
+  domain: mybluemix.net
+  host: geofinder
