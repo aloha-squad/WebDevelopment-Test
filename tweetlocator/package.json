@@ -2,7 +2,6 @@
   "name": "tweetlocator",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://geofinder.mybluemix.net/",
   "dependencies": {
     "cross-env": "^5.2.0",
     "react": "^16.8.6",
