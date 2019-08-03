@@ -2,12 +2,12 @@
   "name": "tweets-finder",
   "version": "1.0.0",
   "scripts": {
-    "client": "cd client && npm start",
     "server": "node server.js",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev": "npm run server"
   },
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "concurrently": "^3.6.1"
   },
   "devDependencies": {
     "concurrently": "^3.6.1"
