@@ -4,7 +4,7 @@ import './App.css';
 
 class App extends Component {
   state = {
-    response: ''
+    response: 'This is just a placeholder!'
   };
 
   componentDidMount() {
@@ -15,9 +15,10 @@ class App extends Component {
 
   callApi = async () => {
     const response = await fetch('http://geofinder.mybluemix.net/api/mensagem');
+    console.log(response);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
-
+    console.log(body);
     return body;
   };
 

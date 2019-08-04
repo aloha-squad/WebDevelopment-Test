@@ -11,6 +11,7 @@ app.use(function(req, res, next) {
 
 app.get('/api/mensagem', (req, res) => {
   res.header("Access-Control-Allow-Origin", "http://tweetlocator.mybluemix.net/");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.send({ express: 'Hi! I was created for development test!' });
 });
 
