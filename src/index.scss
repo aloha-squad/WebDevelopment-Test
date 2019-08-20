@@ -1,0 +1,8 @@
+$feature-flags: (
+  components-x:true,
+  breaking-changes-x: true,
+  grid: true,
+  ui-shell: true
+);
+
+@import 'carbon-components/scss/globals/scss/styles.scss';
